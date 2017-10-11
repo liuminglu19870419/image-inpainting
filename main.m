@@ -24,23 +24,21 @@ for k = 1 : length(mFiles)
                 img(i,j,2) = 255;
                 img(i,j,3) = 0;
             end
-%             
-%             if img(i,j,1) < 70 && img(i,j,1) > 50 && ...
-%                     img(i,j,2) < 70 && img(i,j,2) > 50 && ...
-%                     img(i,j,3) < 70 && img(i,j,3) > 50          
-%                 img(i,j,1) = 100;
-%                 img(i,j,2) = 0;
-%                 img(i,j,3) = 0;
-%             end
         end
     end
     mask = imgT > 20;
-    filename = [int2str(k) , '.jpg'];
-    [inpaintedImg,origImg,C,D] = criminisi(img, mask);
-%     imgn(:,:,1) = tv(img_ori(:,:,1),mask);
-%     imgn(:,:,2) = tv(img_ori(:,:,2),mask);
-%     imgn(:,:,3) = tv(img_ori(:,:,3),mask);
-    image(uint8(inpaintedImg));
+    
+   
+    img_g = img_ori(:,:,3) / 3 + img_ori(:,:,2) / 3 + img_ori(:,:,1) / 3;
+    img_g = img_g(121:475, 141:569,:);
+    img_ori = img_ori(121:475, 141:569,:);
+    subplot(1,2,1)
+    image(uint8(img_ori));
+    subplot(1,2,2)   
+    image(medfilt2(img_g, [5 5]));
+%     [inpaintedImg,origImg,C,D] = criminisi(img, mask);
+%     image(uint8(inpaintedImg));
+%     filename = [int2str(k) , '.jpg'];
 %     imwrite(img, filename);
 end
 
