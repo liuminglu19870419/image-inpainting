@@ -21,6 +21,10 @@ for k = 1 : length(mFiles)
     subplot(1,2,2)
     image(img_g(y1:y2, x1:x2));
 end
+y1 = y1 + paddingh;
+y2 = y2 + paddingh;
+x1 = x1 + paddingw;
+x2 = x2 + paddingw;
 
 function [x1, y1, x2, y2] = vot_edge(edge, padding)
 sz = size(edge);

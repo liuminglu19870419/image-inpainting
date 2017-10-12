@@ -37,9 +37,6 @@ for k = 1 : length(mFiles)
     mask = imgT > 20;
     filename = [int2str(k) , '.jpg'];
     [inpaintedImg,origImg,C,D] = criminisi(img, mask);
-%     imgn(:,:,1) = tv(img_ori(:,:,1),mask);
-%     imgn(:,:,2) = tv(img_ori(:,:,2),mask);
-%     imgn(:,:,3) = tv(img_ori(:,:,3),mask);
     inpaintedImg = medfilt2(inpaintedImg, [5 5]);
     image(uint8(inpaintedImg));
 %     imwrite(img, filename);
