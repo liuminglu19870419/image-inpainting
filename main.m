@@ -27,18 +27,17 @@ for k = 1 : length(mFiles)
         end
     end
     mask = imgT > 20;
-    
-   
+      
     img_g = img_ori(:,:,3) / 3 + img_ori(:,:,2) / 3 + img_ori(:,:,1) / 3;
     img_g = img_g(121:475, 141:569,:);
     img_ori = img_ori(121:475, 141:569,:);
     subplot(1,2,1)
     image(uint8(img_ori));
     subplot(1,2,2)   
-    image(medfilt2(img_g, [5 5]));
-%     [inpaintedImg,origImg,C,D] = criminisi(img, mask);
-%     image(uint8(inpaintedImg));
-%     filename = [int2str(k) , '.jpg'];
+    filename = [int2str(k) , '.jpg'];
+    [inpaintedImg,origImg,C,D] = criminisi(img, mask);
+    inpaintedImg = medfilt2(inpaintedImg, [5 5]);
+    image(uint8(inpaintedImg));
 %     imwrite(img, filename);
 end
 
