@@ -1,35 +1,24 @@
-close all;
-clear all;
-clc;
+function [x1, y1, x2, y2] = delete_border(img)
 
-dirpath = 'example/';
-[ mFiles] = RangTraversal( dirpath, '.jpg' );
-for k = 1 : length(mFiles)
-    img = imread(cell2mat(mFiles(k)));
-    img = double(img);
-    img_g = img(:,:,1) + img(:,:,2) + img(:,:,3);
-    img_g = img_g / 3;
-    sz = size(img_g);
-    paddingh = round(sz(1) * 0.15);
-    paddingw = round(sz(2) * 0.10);
-    img_g = img_g(paddingh:end,paddingw:end - paddingw);
-    
-    e = edge(img_g, 'canny', [0.02]);
-    [x1, y1, x2, y2] = vot_edge(e, sz * 0.4);
-    subplot(1,2,1)
-    image(e * 10)
-    subplot(1,2,2)
-    hold on;
-    figure(1)
-    image(e * 10);
-    scatter([x1 x2], [y1 y2], 'go');
-    hold off;
-%     image(img_g(y1:y2, x1:x2));
-end
+img = double(img);
+img_g = img(:,:,1) + img(:,:,2) + img(:,:,3);
+img_g = img_g / 3;
+sz = size(img_g);
+paddingh = round(sz(1) * 0.15);
+paddingw = round(sz(2) * 0.1);
+img_g = img_g(paddingh:end,paddingw:end - paddingw);
+
+e = edge(img_g, 'canny', [0.02]);
+[x1, y1, x2, y2] = vot_edge(e, sz * 0.4);
+% subplot(1,2,1)
+% image(e * 10)
+% subplot(1,2,2)
+% image(img_g(y1:y2, x1:x2));
 y1 = y1 + paddingh;
 y2 = y2 + paddingh;
 x1 = x1 + paddingw;
 x2 = x2 + paddingw;
+end
 
 function [x1, y1, x2, y2] = vot_edge(edge, padding)
 sz = size(edge);
